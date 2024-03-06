@@ -45,12 +45,8 @@
     },
     "variables": {
         "o365Name": "[concat('o365', uniqueString(resourceGroup().id))]",
-        "m365dName": "[concat('m365d', uniqueString(resourceGroup().id))]",
+        "xdrName": "[concat('xdr', uniqueString(resourceGroup().id))]",
         "d365Name": "[concat('d365', uniqueString(resourceGroup().id))]",
-        "iotName": "[concat('iot', uniqueString(resourceGroup().id))]",
-        "projectName": "[concat('project', uniqueString(resourceGroup().id))]",
-        "irmName": "[concat('irm', uniqueString(resourceGroup().id))]",
-        "powerbiName": "[concat('powerbi', uniqueString(resourceGroup().id))]",
         "ascName": "[concat('asc', uniqueString(resourceGroup().id))]",
         "aadipName": "[concat('aadip', uniqueString(resourceGroup().id))]",
         "tiName": "[concat('ti', uniqueString(resourceGroup().id))]"
