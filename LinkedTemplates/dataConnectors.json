@@ -182,96 +182,16 @@
             }
         },
         {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'Microsoft365Defender')]",
+            "condition": "[contains(parameters('dataConnectorsKind'), 'Microsoft365XDR')]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
             "apiVersion": "2022-12-01-preview",
             "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('m365dName'))]",
+            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('xdrName'))]",
             "kind": "MicrosoftThreatProtection",
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
                     "incidents": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'Dynamics365')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2022-12-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('d365Name'))]",
-            "kind": "Dynamics365",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "dynamics365CdsActivities": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'IOT')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2022-12-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('iotName'))]",
-            "kind": "IOT",
-            "properties": {
-                "subscriptionId": "[parameters('subscriptionId')]",
-                "dataTypes": {
-                    "alerts": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'Office365Project')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2022-12-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('projectName'))]",
-            "kind": "Office365Project",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "logs": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'OfficeIRM')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2022-12-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('irmName'))]",
-            "kind": "OfficeIRM",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "alerts": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'PowerBI')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2022-12-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('powerbiName'))]",
-            "kind": "OfficePowerBI",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "logs": {
                         "state": "enabled"
                     }
                 }
