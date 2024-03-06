@@ -489,7 +489,7 @@
                       "visible": "[if(contains(steps('dataConnectors').enableDataConnectors,'AzureActiveDirectory'),true,false)]"
                   }
               ]
-          },
+          }
         ],
         "outputs": {
             "workspaceName": "[basics('workspaceName')]",
