@@ -1,8 +1,8 @@
 { 
   "type": "microsoft.insights/dataCollectionRules", 
   "apiVersion": "2019-11-01-preview", 
-  "name": "WindowsDCR", 
-  "location": "eastus", 
+  "name": "WindowsSecurityEventDCR", 
+  "location": "[parameters('location')]", 
   "tags": { 
     "createdBy": "Sentinel" 
   }, 
@@ -25,8 +25,8 @@
       "logAnalytics": [ 
         { 
           "name": "SecurityEvent", 
-          "workspaceId": "AZURE-SENTINEL-WORKSPACEID", 
-          "workspaceResourceId": "AZURE-SENTINEL-WORKSPACERESOURCEID" 
+          "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]", 
+          "workspaceResourceId": "[parameters('workspaceResourceId')]"
         } 
       ] 
     }, 
