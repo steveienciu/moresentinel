@@ -1,0 +1,44 @@
+{ 
+  "type": "microsoft.insights/dataCollectionRules", 
+  "apiVersion": "2019-11-01-preview", 
+  "name": "WindowsDCR", 
+  "location": "eastus", 
+  "tags": { 
+    "createdBy": "Sentinel" 
+  }, 
+  "properties": { 
+    "dataSources": { 
+      "windowsEventLogs": [ 
+        { 
+          "name": "eventLogsDataSource", 
+          "scheduledTransferPeriod": "PT5M", 
+          "streams": [ 
+            "Microsoft-SecurityEvent" 
+          ], 
+          "xPathQueries": [ 
+            "Security!*[System[(EventID=4624)]]" 
+          ] 
+        } 
+      ] 
+    }, 
+    "destinations": { 
+      "logAnalytics": [ 
+        { 
+          "name": "SecurityEvent", 
+          "workspaceId": "AZURE-SENTINEL-WORKSPACEID", 
+          "workspaceResourceId": "AZURE-SENTINEL-WORKSPACERESOURCEID" 
+        } 
+      ] 
+    }, 
+    "dataFlows": [ 
+      { 
+        "streams": [ 
+          "Microsoft-SecurityEvent" 
+        ], 
+        "destinations": [ 
+          "SecurityEvent" 
+        ] 
+      } 
+    ] 
+  } 
+} 
