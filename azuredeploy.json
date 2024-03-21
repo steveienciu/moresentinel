@@ -14,40 +14,6 @@
                 "description": "Name for the Log Analytics workspace"
             }
         },
-        "pricingTier": {
-            "type": "string",
-            "metadata": {
-                "description": "Pricing tier: pergb2018 or legacy tiers (Free, Standalone, PerNode, Standard or Premium) which are not available to all customers."
-            },
-            "allowedValues": [
-                "CapacityReservation",
-                "Free",
-                "LACluster",
-                "PerGB2018",
-                "PerNode",
-                "Premium",
-                "Standalone",
-                "Standard"
-            ],
-            "defaultValue": "PerGB2018"
-        },
-        "capacityReservation": {
-            "type": "int",
-            "metadata": {
-                "description": "Commitment tier"
-            },
-            "allowedValues": [
-                100,
-                200,
-                300,
-                400,
-                500,
-                1000,
-                2000,
-                5000
-            ],
-            "defaultValue": 100
-        },
         "enableDataConnectors": {
             "type": "array",
             "metadata": {
@@ -61,12 +27,6 @@
                 "description": "Severity levels desired for Analytics Rules"
             },
             "defaultValue": []
-        },
-        "dailyQuota": {
-            "type": "int",
-            "metadata": {
-                "description": "Daily ingestion limit in GBs. This limit doesn't apply to the following tables: SecurityAlert, SecurityBaseline, SecurityBaselineSummary, SecurityDetection, SecurityEvent, WindowsFirewall, MaliciousIPCommunication, LinuxAuditLog, SysmonEvent, ProtectionStatus, WindowsEvent"
-            }
         },
         "dataRetention": {
             "type": "int",
@@ -88,20 +48,6 @@
             "type": "array",
             "metadata": {
                 "description": "The list of Content Hub 1st party solutions to deploy."
-            },
-            "defaultValue": []
-        },
-        "enableSolutionsEssentials": {
-            "type": "array",
-            "metadata": {
-                "description": "The list of Content Hub Essentials solutions to deploy."
-            },
-            "defaultValue": []
-        },
-        "enableSolutionsTraining": {
-            "type": "array",
-            "metadata": {
-                "description": "The list of Content Hub Training solutions to deploy."
             },
             "defaultValue": []
         },
@@ -165,20 +111,11 @@
                     "workspaceName": {
                         "value": "[parameters('workspaceName')]"
                     },
-                    "pricingTier": {
-                        "value": "[parameters('pricingTier')]"
-                    },
-                    "dailyQuota": {
-                        "value": "[parameters('dailyQuota')]"
-                    },
                     "dataRetention": {
                         "value": "[parameters('dataRetention')]"
                     },
                     "immediatePurgeDataOn30Days": {
                         "value": "[parameters('immediatePurgeDataOn30Days')]"
-                    },
-                    "capacityReservation": {
-                        "value": "[parameters('capacityReservation')]"
                     },
                     "location": {
                         "value": "[parameters('location')]"
