@@ -15,20 +15,6 @@
             },
             "defaultValue": ""
         },
-        "enableSolutionsEssentials": {
-            "type": "string",
-            "metadata": {
-                "description": "Comma separated essentials enabled solutions"
-            },
-            "defaultValue": ""
-        },
-        "enableSolutionsTraining": {
-            "type": "string",
-            "metadata": {
-                "description": "Comma separated training enabled solutions"
-            },
-            "defaultValue": ""
-        },
         "enableAlerts": {
             "type": "bool",
             "metadata": {
@@ -50,7 +36,7 @@
     "functions": [],
     "variables": {
         "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]",
-        "solutions": "[replace(concat(parameters('enableSolutions1P'),if(and(not(empty(parameters('enableSolutions1P'))),not(empty(parameters('enableSolutionsEssentials')))),concat(',',parameters('enableSolutionsEssentials')),parameters('enableSolutionsEssentials')),if(or(not(empty(parameters('enableSolutionsEssentials'))),not(empty(parameters('enableSolutions1P')))),concat(',',parameters('enableSolutionsTraining')),parameters('enableSolutionsTraining'))),'\"','\\\"')]",
+        "solutions": "[replace(parameters('enableSolutions1P'),'\"','\\\"')]",
         "severities": "[if(empty(parameters('severityLevels')),'None',parameters('severityLevels'))]"
     },
     "resources": [
