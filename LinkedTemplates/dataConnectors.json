@@ -155,7 +155,8 @@
             "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('mdcName'))]",
             "kind": "MicrosoftThreatProtection",
             "properties": {
-                "tenantId": "[parameters('tenantId')]"
+                "tenantId": "[parameters('tenantId')]",
+                "dataTypes": { }
             }
         },
         {
