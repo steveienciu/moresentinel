@@ -157,9 +157,7 @@
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
-                    "incidents": {
-                        "state": "enabled"
-                    }
+                    
                 }
             }
         },
