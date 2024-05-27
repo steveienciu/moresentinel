@@ -197,7 +197,7 @@
                 "dataTypes": {
                     "microsoftEmergingThreatFeed": {
                         "state": "enabled",
-                        "lookbackPeriod": "P7D"
+                        "lookbackPeriod": "2023-01-01T00:00:00Z"
                     }
                 }
             }
