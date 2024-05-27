@@ -48,7 +48,7 @@
         "xdrName": "[concat('xdr', uniqueString(resourceGroup().id))]",
         "d365Name": "[concat('d365', uniqueString(resourceGroup().id))]",
         "ascName": "[concat('asc', uniqueString(resourceGroup().id))]",
-        "tiName": "[concat('ti', uniqueString(resourceGroup().id))]"
+        "tiName": "[concat('msti', uniqueString(resourceGroup().id))]"
     },
     "resources": [
          {
