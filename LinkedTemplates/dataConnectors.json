@@ -195,7 +195,7 @@
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
-                    "indicators": {
+                    "microsoftEmergingThreatFeed": {
                         "state": "enabled"
                     }
                 }
