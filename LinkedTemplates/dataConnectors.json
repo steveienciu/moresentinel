@@ -191,7 +191,7 @@
             "apiVersion": "2024-04-01-preview",
             "location": "[parameters('location')]",
             "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('tiName'))]",
-            "kind": "MicrosoftDefenderThreatIntelligence",
+            "kind": "MicrosoftThreatIntelligence",
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
