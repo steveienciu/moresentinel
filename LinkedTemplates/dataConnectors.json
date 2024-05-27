@@ -155,7 +155,7 @@
             "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('mdcName'))]",
             "kind": "AzureSecurityCenter",
             "properties": {
-                "tenantId": "[parameters('tenantId')]",
+                "SubscriptionId": "[parameters('subscriptionId')]",
                 "dataTypes": {
                     "alerts": {
                         "state": "enabled"
@@ -196,7 +196,8 @@
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
                     "microsoftEmergingThreatFeed": {
-                        "state": "enabled"
+                        "state": "enabled",
+                        "lookbackPeriod": "P7D"
                     }
                 }
             }
