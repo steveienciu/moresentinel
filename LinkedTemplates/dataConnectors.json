@@ -153,11 +153,16 @@
             "apiVersion": "2024-04-01-preview",
             "location": "[parameters('location')]",
             "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('mdcName'))]",
-            "kind": "MicrosoftThreatProtection",
+            "kind": "MicrosoftDefenderForCloudTenantBased",
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
-                    
+                    "alerts": {
+                        "state": "enabled"
+                    },
+                    "incidents": {
+                        "state": "enabled"
+                    }
                 }
             }
         },
