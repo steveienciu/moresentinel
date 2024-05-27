@@ -46,7 +46,6 @@
     "variables": {
         "o365Name": "[concat('o365', uniqueString(resourceGroup().id))]",
         "xdrName": "[concat('xdr', uniqueString(resourceGroup().id))]",
-        "d365Name": "[concat('d365', uniqueString(resourceGroup().id))]",
         "ascName": "[concat('asc', uniqueString(resourceGroup().id))]",
         "tiName": "[concat('msti', uniqueString(resourceGroup().id))]"
     },
@@ -106,6 +105,10 @@
                 {
                     "category": "ServicePrincipalRiskEvents",
                     "enabled": "[contains(parameters('aadStreams'),'ServicePrincipalRiskEvents')]"
+                },
+                {
+                    "category": "MicrosoftGraphActivityLogs",
+                    "enabled": "[contains(parameters('aadStreams'),'MicrosoftGraphActivityLogs')]"
                 }
             ],
             "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
