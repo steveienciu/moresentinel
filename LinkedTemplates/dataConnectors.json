@@ -175,6 +175,9 @@
                 "dataTypes": {
                     "alerts": {
                         "state": "enabled"
+                    },
+                    "incidents": {
+                        "state": "enabled"
                     }
                 }
             }
