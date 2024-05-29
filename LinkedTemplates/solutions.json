@@ -132,8 +132,8 @@
             }
         },
         {
-            "condition": "[contains(parameters('enableSolutions1P'), 'AzureActiveDirectory')]",
-            "name": "AzureActiveDirectory",
+            "condition": "[contains(parameters('enableSolutions1P'), 'MicrosoftEntraID')]",
+            "name": "MicrosoftEntraID",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
             "properties": {
