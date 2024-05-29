@@ -53,7 +53,7 @@
          {
             "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftEntraID')]",
             "type": "microsoft.aadiam/diagnosticSettings",
-            "apiVersion": "2024-04-01-preview",
+            "apiVersion": "2017-04-01",
             "scope": "/",
             "name": "[format('{0}-entraidDiagnosticSetttings', parameters('workspaceName'))]",
             "properties": {
