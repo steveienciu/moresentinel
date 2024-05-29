@@ -148,22 +148,6 @@
             }
         },
         {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftDefenderForCloud')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2024-04-01-preview",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'), '/Microsoft.SecurityInsights/', variables('mdcname'))]",
-            "kind": "GenericUI",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "securityAlerts": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
             "condition": "[contains(parameters('dataConnectorsKind'), 'Microsoft365XDR')]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
             "apiVersion": "2022-12-01-preview",
