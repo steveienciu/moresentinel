@@ -36,7 +36,7 @@
         {
             "name": "[parameters('workspaceName')]",
             "type": "Microsoft.OperationalInsights/workspaces",
-            "apiVersion": "2024-04-01-preview",
+            "apiVersion": "2024-03-01",
             "location": "[parameters('location')]",
             "properties": {
                 "retentionInDays": "[parameters('dataRetention')]",
