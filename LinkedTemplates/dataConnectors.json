@@ -51,7 +51,7 @@
     },
     "resources": [
          {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftEntraID')]",
+            "condition": "[contains(parameters('dataConnectorsKind'), 'AzureActiveDirectory')]",
             "type": "microsoft.aadiam/diagnosticSettings",
             "apiVersion": "2017-04-01",
             "scope": "/",
