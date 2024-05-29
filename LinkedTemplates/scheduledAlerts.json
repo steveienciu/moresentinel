@@ -64,30 +64,6 @@
             "dependsOn": [
                 "[concat('Microsoft.Resources/deploymentScripts/', 'sleep')]"
             ]
-        },
-        {
-            "dependsOn": ["[concat('Microsoft.Authorization/roleAssignments/', parameters('roleGuid'))]"],
-            "type": "Microsoft.Resources/deploymentScripts",
-            "apiVersion": "2020-10-01",
-            "name": "deployRules",
-            "location": "[resourceGroup().location]",
-            "kind": "AzurePowerShell",
-            "identity": {
-                "type": "userAssigned",
-                "userAssignedIdentities": {
-                    "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',variables('identityName'))]": {}
-                }
-            },
-            "properties": {
-                "forceUpdateTag": "1",
-                "azPowerShellVersion": "3.0",
-                "arguments": "[concat('-Workspace ', parameters('workspaceName'), ' -ResourceGroup ', resourceGroup().name, ' -Connectors ', parameters('dataConnectorsList'), ' -SeveritiesToInclude ', parameters('severityLevels'))]",
-                "primaryScriptUri": "https://raw.githubusercontent.com/CPRussell/SentinelTest/main/Scripts/EnableRules.ps1",
-                "supportingScriptUris": [],
-                "timeout": "PT30M",
-                "cleanupPreference": "OnExpiration",
-                "retentionInterval": "P1D"
-            }
         }
     ],
     "outputs": {}
