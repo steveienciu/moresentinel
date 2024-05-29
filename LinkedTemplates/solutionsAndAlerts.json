@@ -43,13 +43,13 @@
         {
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "name": "[variables('identityName')]",
-            "apiVersion": "2018-11-30",
+            "apiVersion": "2024-04-01-preview",
             "location": "[resourceGroup().location]"
         },
         {
             "dependsOn": ["[concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('identityName'))]"],
             "type": "Microsoft.Resources/deploymentScripts",
-            "apiVersion": "2020-10-01",
+            "apiVersion": "2024-04-01-preview",
             "name": "sleep",
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
@@ -65,7 +65,7 @@
             }
         },
         {
-            "apiVersion": "2017-09-01",
+            "apiVersion": "2024-04-01-preview",
             "type": "Microsoft.Authorization/roleAssignments",
             "name": "[parameters('roleGuid')]",
             "properties": {
@@ -80,7 +80,7 @@
         {
             "dependsOn": ["[concat('Microsoft.Authorization/roleAssignments/', parameters('roleGuid'))]"],
             "type": "Microsoft.Resources/deploymentScripts",
-            "apiVersion": "2020-10-01",
+            "apiVersion": "2024-04-01-preview",
             "name": "deployRules",
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
