@@ -148,19 +148,16 @@
             }
         },
         {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftDefenderForCloud')]",
+            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftDefenderForCloudTenantBased')]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2024-04-01-preview",
+            "apiVersion": "2020-01-01",
             "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('mdcName'))]",
-            "kind": "AzureSecurityCenter",
+            "name": "[concat(parameters('workspaceName'), '/Microsoft.SecurityInsights/', variables('mdcname'))]",
+            "kind": "GenericUI",
             "properties": {
-                "SubscriptionId": "[parameters('subscriptionId')]",
+                "tenantId": "[parameters('tenantId')]",
                 "dataTypes": {
-                    "alerts": {
-                        "state": "enabled"
-                    },
-                    "incidents": {
+                    "securityAlerts": {
                         "state": "enabled"
                     }
                 }
@@ -197,7 +194,7 @@
                 "dataTypes": {
                     "microsoftEmergingThreatFeed": {
                         "state": "enabled",
-                        "lookbackPeriod": "2023-01-01T00:00:00Z"
+                        "lookbackPeriod": "1970-01-01T00:00:00Z"
                     }
                 }
             }
