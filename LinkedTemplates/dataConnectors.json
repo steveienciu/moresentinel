@@ -51,11 +51,11 @@
     },
     "resources": [
          {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'AzureActiveDirectory')]",
+            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftEntraID')]",
             "type": "microsoft.aadiam/diagnosticSettings",
             "apiVersion": "2017-04-01",
             "scope": "/",
-            "name": "[format('{0}-aadDiagnosticSetttings', parameters('workspaceName'))]",
+            "name": "[format('{0}-entraidDiagnosticSetttings', parameters('workspaceName'))]",
             "properties": {
             "logs": [
                 {
