@@ -36,7 +36,7 @@
         {
             "condition": "[parameters('enableUeba')]",
             "type": "Microsoft.SecurityInsights/settings",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2022-12-01-preview",
             "name": "EntityAnalytics",
             "kind": "EntityAnalytics",
             "scope": "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]",
@@ -47,7 +47,7 @@
         {
             "condition": "[parameters('enableUeba')]",
             "type": "Microsoft.OperationsManagement/solutions",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2015-11-01-preview",
             "name": "[concat('BehaviorAnalyticsInsights','(', parameters('workspaceName'),')')]",
             "location": "[resourceGroup().location]",
             "properties":{
@@ -64,7 +64,7 @@
             "condition": "[parameters('enableDiagnostics')]",
             "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights', '/SentinelHealth', '/Microsoft.Insights/', parameters('settingName'))]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/settings/providers/diagnosticSettings",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-05-01-preview",
             "properties": {
                 "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
                 "logs": [
