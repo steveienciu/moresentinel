@@ -154,7 +154,7 @@
         {
             "name": "workspaceCreation",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-03-20",
+            "apiVersion": "2023-09-01",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups',parameters('rgName'))]"
             ],
