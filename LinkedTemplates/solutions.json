@@ -21,7 +21,7 @@
             "condition": "[contains(parameters('enableSolutions1P'), 'AzureAD')]",
             "name": "AzureAD",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-04-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -51,7 +51,7 @@
             "condition": "[contains(parameters('enableSolutions1P'), 'Microsoft365')]",
             "name": "Microsoft365",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-04-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -108,7 +108,7 @@
             "condition": "[contains(parameters('enableSolutions1P'), 'MicrosoftEntraID')]",
             "name": "MicrosoftEntraID",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-04-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -138,7 +138,7 @@
             "condition": "[contains(parameters('enableSolutions1P'), 'AzureActivity')]",
             "name": "AzureActivity",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-04-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -165,7 +165,7 @@
             "condition": "[contains(parameters('enableSolutions1P'), 'ThreatIntelligence')]",
             "name": "ThreatIntelligence",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2021-04-01",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
