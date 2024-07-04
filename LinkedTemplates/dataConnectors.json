@@ -156,9 +156,9 @@
             "kind": "MicrosoftThreatProtection",
             "properties": {
                 "tenantId": "[parameters('tenantId')]",
-                    "incidents": {
-                        "state": "enabled"
-                    }
+                "incidents": {
+                    "state": "enabled"
+                }
             }
         },
         {
