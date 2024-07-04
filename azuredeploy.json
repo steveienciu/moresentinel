@@ -146,7 +146,7 @@
         },
         {
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2020-06-01",
             "name": "[parameters('rgName')]",
             "location": "[parameters('location')]",
             "properties": {}
@@ -215,7 +215,7 @@
             "condition": "[not(empty(parameters('enableDataConnectors')))]",
             "name": "enableDataConnectors",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2020-06-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
                 "workspaceCreation",
@@ -253,7 +253,7 @@
             "condition": "[not(empty(parameters('enableSolutions1P')))]",
             "name": "enableSolutionsAndAlerts",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2020-06-01",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
                 "workspaceCreation",
