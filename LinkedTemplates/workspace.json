@@ -36,7 +36,7 @@
         {
             "name": "[parameters('workspaceName')]",
             "type": "Microsoft.OperationalInsights/workspaces",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2015-11-01-preview",
             "location": "[parameters('location')]",
             "properties": {
                 "retentionInDays": "[parameters('dataRetention')]",
@@ -49,7 +49,7 @@
             "type": "Microsoft.SecurityInsights/onboardingStates",
             "name": "default",
             "scope": "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2022-12-01-preview",
             "properties": {
             },
             "dependsOn": [
@@ -59,7 +59,7 @@
         {
             "name": "[concat('SecurityInsights','(', parameters('workspaceName'),')')]",
             "type": "Microsoft.OperationsManagement/solutions",
-            "apiVersion": "2024-03-01",
+            "apiVersion": "2015-11-01-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "default"
@@ -84,7 +84,7 @@
                 "default"
             ],
             "scope": "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]",
-            "apiVersion":"2024-03-01",
+            "apiVersion":"2022-12-01-preview",
             "properties": {
                 "severity": "Informational",
                 "status": "Closed",
