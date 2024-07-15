@@ -15,6 +15,20 @@
             },
             "defaultValue": ""
         },
+        "enableSolutionsEssentials": {
+            "type": "string",
+            "metadata": {
+                "description": "Comma separated essentials enabled solutions"
+            },
+            "defaultValue": ""
+        },
+        "enableSolutionsTraining": {
+            "type": "string",
+            "metadata": {
+                "description": "Comma separated training enabled solutions"
+            },
+            "defaultValue": ""
+        },
         "enableAlerts": {
             "type": "bool",
             "metadata": {
@@ -36,7 +50,7 @@
     "functions": [],
     "variables": {
         "identityName": "[concat('userIdentity',uniqueString(resourceGroup().id))]",
-        "solutions": "[replace(parameters('enableSolutions1P'),'\"','\\\"')]",
+        "solutions": "[replace(concat(parameters('enableSolutions1P'),if(and(not(empty(parameters('enableSolutions1P'))),not(empty(parameters('enableSolutionsEssentials')))),concat(',',parameters('enableSolutionsEssentials')),parameters('enableSolutionsEssentials')),if(or(not(empty(parameters('enableSolutionsEssentials'))),not(empty(parameters('enableSolutions1P')))),concat(',',parameters('enableSolutionsTraining')),parameters('enableSolutionsTraining'))),'\"','\\\"')]",
         "severities": "[if(empty(parameters('severityLevels')),'None',parameters('severityLevels'))]"
     },
     "resources": [
@@ -94,7 +108,7 @@
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "3.0",
                 "arguments": "[concat('-Workspace ', parameters('workspaceName'), ' -ResourceGroup ', resourceGroup().name, ' -Solutions ', variables('solutions'), ' -SeveritiesToInclude ', string(variables('severities')), ' -Region ', parameters('location'))]",
-                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/SentinelStuff/main/Scripts/Create-NewSolutionAndRulesFromList.ps1",
+                "primaryScriptUri": "https://raw.githubusercontent.com/CPRussell/SentinelTest/main/Scripts/Create-NewSolutionAndRulesFromList.ps1",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
                 "cleanupPreference": "OnExpiration",
