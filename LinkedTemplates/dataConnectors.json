@@ -110,6 +110,14 @@
                 {
                     "category": "MicrosoftGraphActivityLogs",
                     "enabled": "[contains(parameters('aadStreams'),'MicrosoftGraphActivityLogs')]"
+                },
+                {
+                    "category": "EnrichedOffice365AuditLogs",
+                    "enabled": "[contains(parameters('aadStreams'),'EnrichedOffice365AuditLogs')]"
+                },
+                {
+                    "category": "RemoteNetworkHealthLogs",
+                    "enabled": "[contains(parameters('aadStreams'),'RemoteNetworkHealthLogs')]"
                 }
             ],
             "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
@@ -132,22 +140,6 @@
                         "state": "enabled"
                     },
                     "teams": {
-                        "state": "enabled"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[contains(parameters('dataConnectorsKind'), 'MicrosoftDefenderForCloud')]",
-            "type": "Microsoft.OperationalInsights/workspaces/providers/dataConnectors",
-            "apiVersion": "2020-01-01",
-            "location": "[parameters('location')]",
-            "name": "[concat(parameters('workspaceName'),'/Microsoft.SecurityInsights/',variables('ascName'))]",
-            "kind": "AzureSecurityCenter",
-            "properties": {
-                "tenantId": "[parameters('tenantId')]",
-                "dataTypes": {
-                    "incidents": {
                         "state": "enabled"
                     }
                 }
