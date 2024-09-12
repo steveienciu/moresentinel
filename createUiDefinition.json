@@ -147,7 +147,7 @@
                       "constraints": {
                           "allowedValues": [
                               {
-                                  "label": "Azure Active Directory",
+                                  "label": "Microsoft Entra ID",
                                   "description": "The Azure Active Directory solution for Microsoft Sentinel enables you to ingest Azure Active Directory Audit,Sign-in,Provisioning,Risk Events and Risky User/Service Principal logs using Diagnostic Settings into Microsoft Sentinel.",
                                   "value": "Azure Active Directory"
                               },
@@ -211,7 +211,7 @@
                       "constraints": {
                           "allowedValues": [
                             {
-                                "label": "Azure Active Directory",
+                                "label": "Microsoft Entra ID",
                                 "description": "Relevant license and Global Admin or Security Admin permission required.",
                                 "value": "AzureActiveDirectory"
                             },  
@@ -306,6 +306,14 @@
                               {
                                   "label": "Microsoft Graph Activity Logs (Preview)",
                                   "value": "MicrosoftGraphActivityLogs"
+                              },
+                              {
+                                  "label": "Enriched Office365 Audit Logs (Preview)",
+                                  "value": "EnrichedOffice365AuditLogs"
+                              },
+                              {
+                                  "label": "Remote Network Health Logs (Preview)",
+                                  "value": "RemoteNetworkHealthLogs"
                               }
                           ],
                           "required": false
