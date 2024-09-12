@@ -25,7 +25,7 @@
         "tenantId": {
             "type": "string",
             "metadata": {
-                "description": "Azure AD tenant ID"
+                "description": "Microsoft Entra ID tenant ID"
             }
         },
         "subscriptionId": {
