@@ -94,7 +94,7 @@
                       "constraints": {
                           "allowedValues": [
                               {
-                                  "label": "Azure Active Directory",
+                                  "label": "Microsoft Entra ID",
                                   "value": "AzureActiveDirectory"
                               },
                               {
