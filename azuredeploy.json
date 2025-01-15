@@ -134,53 +134,6 @@
                 "parameters": {
                     "workspaceName": {
                         "value": "[parameters('workspaceName')]"
-                    },
-                    "enableUeba": {
-                        "value": "[parameters('enableUeba')]"
-                    },
-                    "identityProviders": {
-                        "value": "[parameters('identityProviders')]"
-                    },
-                    "enableDiagnostics": {
-                        "value": "[parameters('enableDiagnostics')]"
-                    }
-                }
-            }
-        },
-        {
-            "condition": "[not(empty(parameters('enableDataConnectors')))]",
-            "name": "enableDataConnectors",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "resourceGroup": "[parameters('rgName')]",
-            "dependsOn": [
-                "workspaceCreation",
-                "enableSolutionsAndAlerts"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[uri(parameters('_artifactsLocation'), 'LinkedTemplates/dataConnectors.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "dataConnectorsKind": {
-                        "value": "[parameters('enableDataConnectors')]"
-                    },
-                    "aadStreams": {
-                        "value": "[parameters('aadStreams')]"
-                    },
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    },
-                    "tenantId": {
-                        "value": "[subscription().tenantId]"
-                    },
-                    "subscriptionId": {
-                        "value": "[subscription().subscriptionId]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
                     }
                 }
             }
@@ -190,10 +143,6 @@
         "workspaceName": {
             "type": "string",
             "value": "[parameters('workspaceName')]"
-        },
-        "dataConnectorsList": {
-            "type": "string",
-            "value": "[replace(replace(string(parameters('enableDataConnectors')),'\"',''),'[','')]"
         }
     }
 }
