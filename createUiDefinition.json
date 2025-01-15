@@ -47,12 +47,6 @@
             }
             ],
           "steps": [
-            {
-              "name": "settings",
-              "label": "Settings",
-              "elements": [
-              ]
-          },
           {
               "name": "solutions",
               "label": "Content Hub Solutions",
