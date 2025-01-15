@@ -253,7 +253,6 @@
         ],
         "outputs": {
             "workspaceName": "[basics('workspaceName')]",
-            "dataRetention": "[basics('dataRetention')]",
             "enableUeba": "[steps('settings').enableUeba]",
             "identityProviders": "[steps('settings').identityProviders]",
             "enableDiagnostics": "[steps('settings').enableDiagnostics]",
