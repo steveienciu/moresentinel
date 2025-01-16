@@ -8,6 +8,9 @@
         "location": {
             "type": "string"
         },
+        "countryId": {
+            "type": "string"
+        },
         "_artifactsLocation": {
             "type": "string",
             "metadata": {
@@ -94,6 +97,14 @@
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "location": {
+                            "type": "string"
+                        },
+                        "countryId": {
+                            "type": "string"
+                        }
+                    },
                     "resources": [
                         {
                             "type": "Microsoft.Resources/deploymentScripts",
