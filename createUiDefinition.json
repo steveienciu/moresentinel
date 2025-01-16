@@ -27,6 +27,31 @@
                     "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
                 },
                 "visible": true  
+            },
+            {
+                "name": "country",
+                "type": "Microsoft.Common.DropDown",
+                "label": "Country",
+                "defaultValue": "USA",
+                "toolTip": "Select a country",
+                "constraints": {
+                    "allowedValues": [
+                        {
+                            "label": "USA",
+                            "value": "USA"
+                        },
+                        {
+                            "label": "Canada",
+                            "value": "Canada"
+                        },
+                        {
+                            "label": "Spain",
+                            "value": "Spain"
+                        }
+                    ],
+                    "required": true
+                },
+                "visible": true
             }
         ],
         "steps": [
