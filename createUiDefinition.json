@@ -47,6 +47,54 @@
                         {
                             "label": "Spain",
                             "value": "Spain"
+                        },
+                        {
+                            "label": "Philippines",
+                            "value": "Philippines"
+                        },
+                        {
+                            "label": "United Kingdom ",
+                            "value": "United Kingdom "
+                        },
+                        {
+                            "label": "Hungary",
+                            "value": "Hungary"
+                        },
+                        {
+                            "label": "Belgium",
+                            "value": "Belgium"
+                        },
+                        {
+                            "label": "Netherlands",
+                            "value": "Netherlands"
+                        },
+                        {
+                            "label": "Germany",
+                            "value": "Germany"
+                        },
+                        {
+                            "label": "Switzerland",
+                            "value": "Switzerland"
+                        },
+                        {
+                            "label": "France",
+                            "value": "France"
+                        },
+                        {
+                            "label": "Singapore",
+                            "value": "Singapore"
+                        },
+                        {
+                            "label": "Denmark",
+                            "value": "Denmark"
+                        },
+                        {
+                            "label": "Australia",
+                            "value": "Australia"
+                        },
+                        {
+                            "label": "LATAM",
+                            "value": "LATAM"
                         }
                     ],
                     "required": true
