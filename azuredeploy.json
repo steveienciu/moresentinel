@@ -84,14 +84,14 @@
             "location": "[parameters('location')]",
             "properties": {}
         },
-                {
+        {
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
             "name": "deployPartnerId",
             "location": "[parameters('location')]",
             "kind": "AzurePowerShell"
-            },
-            "properties": {
+        },
+        "properties": {
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "3.0",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
@@ -100,7 +100,6 @@
                 "timeout": "PT30M",
                 "cleanupPreference": "Always",
                 "retentionInterval": "P1D"
-            }
         }
     ],
     "outputs": {
