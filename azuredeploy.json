@@ -8,12 +8,6 @@
         "location": {
             "type": "string"
         },
-        "workspaceName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name for the Log Analytics workspace"
-            }
-        },
         "_artifactsLocation": {
             "type": "string",
             "metadata": {
@@ -89,60 +83,8 @@
             "name": "[parameters('rgName')]",
             "location": "[parameters('location')]",
             "properties": {}
-        },
-        {
-            "name": "workspaceCreation",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups',parameters('rgName'))]"
-            ],
-            "resourceGroup": "[parameters('rgName')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[uri(parameters('_artifactsLocation'), 'LinkedTemplates/workspace.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    },
-                    "immediatePurgeDataOn30Days": {
-                        "value": "[parameters('immediatePurgeDataOn30Days')]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "name": "settings",
-            "apiVersion": "2020-06-01",
-            "dependsOn": [
-                "workspaceCreation"
-            ],
-            "resourceGroup": "[parameters('rgName')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[uri(parameters('_artifactsLocation'), 'LinkedTemplates/settings.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    }
-                }
-            }
         }
     ],
     "outputs": {
-        "workspaceName": {
-            "type": "string",
-            "value": "[parameters('workspaceName')]"
-        }
     }
 }
