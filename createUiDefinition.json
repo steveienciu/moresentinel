@@ -33,7 +33,7 @@
                 "type": "Microsoft.Common.DropDown",
                 "label": "Country",
                 "defaultValue": "USA",
-                "toolTip": "Select a country",
+                "toolTip": "Select the country your team is based out of",
                 "constraints": {
                     "allowedValues": [
                         {
