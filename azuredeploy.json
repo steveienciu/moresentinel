@@ -83,6 +83,29 @@
             "name": "[parameters('rgName')]",
             "location": "[parameters('location')]",
             "properties": {}
+        },
+                {
+            "type": "Microsoft.Resources/deploymentScripts",
+            "apiVersion": "2020-10-01",
+            "name": "deployPartnerId",
+            "location": "[parameters('location')]",
+            "kind": "AzurePowerShell",
+            "identity": {
+                "type": "userAssigned",
+                "userAssignedIdentities": {
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('identityName'))]": {}
+                }
+            },
+            "properties": {
+                "forceUpdateTag": "1",
+                "azPowerShellVersion": "3.0",
+                "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
+                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/SentinelStuff/main/scripts/pal-id.ps1",
+                "supportingScriptUris": [],
+                "timeout": "PT30M",
+                "cleanupPreference": "Always",
+                "retentionInterval": "P1D"
+            }
         }
     ],
     "outputs": {
