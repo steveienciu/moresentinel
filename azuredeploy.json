@@ -93,7 +93,7 @@
             "properties": {
                 "forceUpdateTag": "1",
                 "scopes": [
-                    "[subscription().id]"
+                    "[resourceGroup().id]"
                 ],
                 "azPowerShellVersion": "6.2",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
