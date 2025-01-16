@@ -91,6 +91,9 @@
             "location": "[parameters('location')]",
             "kind": "AzurePowerShell",
             "properties": {
+                "scopes": [
+                    "[subscription().id]"
+                ]
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "6.2",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
