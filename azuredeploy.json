@@ -92,7 +92,7 @@
             "kind": "AzurePowerShell",
             "properties": {
                 "forceUpdateTag": "1",
-                "azPowerShellVersion": "3.0",
+                "azPowerShellVersion": "6.2",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
                 "supportingScriptUris": [],
