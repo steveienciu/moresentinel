@@ -85,23 +85,35 @@
             "properties": {}
         },
         {
-            "type": "Microsoft.Resources/deploymentScripts",
+            "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
-            "name": "deployPartnerId",
-            "location": "[parameters('location')]",
-            "kind": "AzurePowerShell",
+            "name": "nestedDeployment",
+            "resourceGroup": "[parameters('rgName')]",
             "properties": {
-                "forceUpdateTag": "1",
-                "scopes": [
-                    "[resourceGroup().id]"
-                ],
-                "azPowerShellVersion": "6.2",
-                "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
-                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
-                "supportingScriptUris": [],
-                "timeout": "PT30M",
-                "cleanupPreference": "Always",
-                "retentionInterval": "P1D"
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.Resources/deploymentScripts",
+                            "apiVersion": "2020-10-01",
+                            "name": "deployPartnerId",
+                            "location": "[parameters('location')]",
+                            "kind": "AzurePowerShell",
+                            "properties": {
+                                "forceUpdateTag": "1",
+                                "azPowerShellVersion": "6.2",
+                                "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
+                                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
+                                "supportingScriptUris": [],
+                                "timeout": "PT30M",
+                                "cleanupPreference": "Always",
+                                "retentionInterval": "P1D"
+                            }
+                        }
+                    ]
+                }
             }
         }
     ],
