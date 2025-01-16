@@ -95,7 +95,7 @@
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "3.0",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
-                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/SentinelStuff/main/scripts/pal-id.ps1",
+                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
                 "cleanupPreference": "Always",
