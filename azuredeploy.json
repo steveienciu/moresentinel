@@ -14,60 +14,69 @@
     },
     "resources": [
         {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01", 
+            "name": "lighthouseDeployment",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups', parameters('rgName'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/steveienciu/SentinelStuff/main/lighthouse/bv_sentinel_lighthouse_template_rg.json"
+                },
+                "parameters": {
+                    "rgName": {
+                        "value": "[parameters('rgName')]"
+                    },
+                    "mspOfferName": {
+                        "value": "BlueVoyant Azure Sentinel MSSP"
+                    },
+                    "mspOfferDescription": {
+                        "value": "BlueVoyant Managed Security Services"
+                    },
+                    "managedByTenantId": {
+                        "value": "172f0077-e962-407c-86e2-20b3cd881b2c"
+                    },
+                    "authorizations": {
+                        "value": [
+                            {
+                                "principalId": "35d106a1-c847-4b39-8cf2-0c0358a1d89b",
+                                "principalIdDisplayName": "BlueVoyant SOC Analysts",
+                                "roleDefinitionId": "3e150937-b8fe-4cfb-8069-0eaf05ecd056"
+                            },
+                            {
+                                "principalId": "9088d8a2-760c-484c-8753-8f787c970121",
+                                "principalIdDisplayName": "BlueVoyant SOC Engineering",
+                                "roleDefinitionId": "b24988ac-6180-42a0-ab88-20f7382dd24c"
+                            },
+                            {
+                                "principalId": "8aabcc7b-27bb-49fa-bcf7-e5f2e8a2e444",
+                                "principalIdDisplayName": "BlueVoyant Client Success Team",
+                                "roleDefinitionId": "8d289c81-5878-46d4-8554-54e1e3d8b5cb"
+                            },
+                            {
+                                "principalId": "47464d21-730e-45b0-b230-8124d48b9949",
+                                "principalIdDisplayName": "BlueVoyant Sentinel Automation Rules Engineering",
+                                "roleDefinitionId": "f4c81013-99ee-4d62-a7ee-b3f1f648599a"
+                            },
+                            {
+                                "principalId": "9088d8a2-760c-484c-8753-8f787c970121",
+                                "principalIdDisplayName": "BlueVoyant MSP Operators",
+                                "roleDefinitionId": "91c1777a-f3dc-4fae-b103-61d183457e46"
+                            }                  
+                        ]
+                    }
+                }
+            }
+        },
+        {
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2020-06-01",
             "name": "[parameters('rgName')]",
             "location": "[parameters('location')]",
             "properties": {}
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-10-01",
-            "name": "nestedDeployment",
-            "resourceGroup": "[parameters('rgName')]",
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {
-                        "location": {
-                            "type": "string"
-                        },
-                        "countryId": {
-                            "type": "string"
-                        }
-                    },
-                    "resources": [
-                        {
-                            "type": "Microsoft.Resources/deploymentScripts",
-                            "apiVersion": "2020-10-01",
-                            "name": "deployPartnerId",
-                            "location": "[parameters('location')]",
-                            "kind": "AzurePowerShell",
-                            "properties": {
-                                "forceUpdateTag": "1",
-                                "azPowerShellVersion": "6.2",
-                                "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
-                                "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
-                                "supportingScriptUris": [],
-                                "timeout": "PT30M",
-                                "cleanupPreference": "Always",
-                                "retentionInterval": "P1D"
-                            }
-                        }
-                    ],
-                    "outputs": {}
-                },
-                "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "countryId": {
-                        "value": "[parameters('countryId')]"
-                    }
-                }
-            }
         }
     ],
     "outputs": {}
