@@ -7,9 +7,6 @@
         },
         "location": {
             "type": "string"
-        },
-        "countryId": {
-            "type": "string"
         }
     },
     "resources": [
