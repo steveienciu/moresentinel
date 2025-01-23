@@ -21,7 +21,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/steveienciu/SentinelStuff/main/lighthouse/bv_sentinel_lighthouse_template_rg.json"
+                    "uri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/lighthouse/bv_sentinel_lighthouse_template_rg.json"
                 },
                 "parameters": {
                     "rgName": {
