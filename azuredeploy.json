@@ -15,9 +15,6 @@
             "apiVersion": "2019-10-01", 
             "name": "lighthouseDeployment",
             "location": "[parameters('location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups', parameters('rgName'))]"
-            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
