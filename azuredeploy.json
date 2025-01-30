@@ -9,6 +9,9 @@
             "type": "string"
         }
     },
+    "variables": {
+        "identityName": "bv-managed-identity"
+    },
     "resources": [
         {
             "type": "Microsoft.Resources/deployments",
