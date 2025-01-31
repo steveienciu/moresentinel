@@ -24,7 +24,6 @@
             "name": "managedIdentityCreation",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "location": "[parameters('location')]",
             "resourceGroup": "[parameters('rgName')]",
             "properties": {
                 "mode": "Incremental",
