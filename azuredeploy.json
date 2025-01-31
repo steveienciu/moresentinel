@@ -14,14 +14,29 @@
     },
     "resources": [
         {
-            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
-            "name": "[variables('identityName')]",
-            "apiVersion": "2018-11-30",
-            "location": "[parameters('location')]"
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "managedIdentityDeployment",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+                            "apiVersion": "2018-11-30",
+                            "name": "[variables('identityName')]",
+                            "location": "[parameters('location')]"
+                        }
+                    ]
+                }
+            },
+            "dependsOn": []
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01", 
+            "apiVersion": "2019-10-01",
             "name": "lighthouseDeployment",
             "location": "[parameters('location')]",
             "properties": {
@@ -72,7 +87,10 @@
                         ]
                     }
                 }
-            }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'managedIdentityDeployment')]"
+            ]
         }
     ],
     "outputs": {}
