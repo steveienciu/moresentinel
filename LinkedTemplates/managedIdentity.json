@@ -20,7 +20,7 @@
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "apiVersion": "2024-11-30",
             "name": "[parameters('identityName')]",
-            "location": "[parameters('location')]"
+            "location": "[resourceGroup().location]"
         }
     ],
     "outputs": {}
