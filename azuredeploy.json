@@ -30,7 +30,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[uri(parameters('_artifactsLocation'), 'LinkedTemplates/managedIdentity.json')]",
-                    "contentVersion": "1.0.0.0",
+                    "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "location": {
@@ -39,8 +39,8 @@
                     "identityName": {
                         "value": "[variables('identityName')]"
                     }
-            },
-            "dependsOn": []
+                }
+            }
         },
         {
             "type": "Microsoft.Resources/deployments",
