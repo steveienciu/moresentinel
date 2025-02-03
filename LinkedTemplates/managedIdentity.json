@@ -18,6 +18,37 @@
             "apiVersion": "2018-11-30",
             "name": "[variables('identityName')]",
             "location": "[resourceGroup().location]"
+        },
+        {
+            "dependsOn": ["[concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('identityName'))]"],
+            "type": "Microsoft.Resources/deploymentScripts",
+            "apiVersion": "2020-10-01",
+            "name": "sleep",
+            "location": "[resourceGroup().location]",
+            "kind": "AzurePowerShell",
+            "properties": {
+                "forceUpdateTag": "1",
+                "azPowerShellVersion": "3.0",
+                "arguments": "",
+                "scriptContent": "Start-Sleep -Seconds 120",
+                "supportingScriptUris": [],
+                "timeout": "PT30M",
+                "cleanupPreference": "Always",
+                "retentionInterval": "P1D"
+            }
+        },
+        {
+            "apiVersion": "2017-09-01",
+            "type": "Microsoft.Authorization/roleAssignments",
+            "name": "[parameters('roleGuid')]",
+            "properties": {
+                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '73c42c96-874c-492b-b04d-ab87d138a893')]",
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30', 'Full').properties.principalId]",
+                "scope": "[resourceGroup().id]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Resources/deploymentScripts/', 'sleep')]"
+            ]
         }
     ],
     "outputs": {}
