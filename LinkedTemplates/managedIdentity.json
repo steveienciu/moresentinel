@@ -14,7 +14,7 @@
         }
     },
     "variables": {
-        "identityName": "bv-managed-identity"
+        "identityName": "bv-mi-playbook"
     },
     "resources": [
         {
