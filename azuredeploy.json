@@ -17,7 +17,6 @@
         }
     },
     "variables": {
-        "identityName": "bv-managed-identity"
     },
     "resources": [
         {
