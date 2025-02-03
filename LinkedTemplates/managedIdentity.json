@@ -7,6 +7,10 @@
             "metadata": {
                 "description": "Location for the managed identity."
             }
+        },
+        "roleGuid": {
+            "type": "string",
+            "defaultValue": "[newGuid()]"
         }
     },
     "variables": {
