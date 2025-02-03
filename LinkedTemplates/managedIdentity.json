@@ -7,19 +7,16 @@
             "metadata": {
                 "description": "Location for the managed identity."
             }
-        },
-        "identityName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of the user-assigned managed identity."
-            }
         }
+    },
+    "variables": {
+        "identityName": "bv-managed-identity"
     },
     "resources": [
         {
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
-            "apiVersion": "2024-11-01",
-            "name": "[parameters('identityName')]",
+            "apiVersion": "2018-11-30",
+            "name": "[variables('identityName')]",
             "location": "[resourceGroup().location]"
         }
     ],
