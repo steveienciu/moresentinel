@@ -31,7 +31,7 @@
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
             "properties": {
-                "forceUpdateTag": "1",
+                "forceUpdateTag": "2",
                 "azPowerShellVersion": "3.0",
                 "arguments": "",
                 "scriptContent": "Start-Sleep -Seconds 120",
