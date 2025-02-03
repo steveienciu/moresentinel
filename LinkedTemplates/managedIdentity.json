@@ -11,6 +11,9 @@
         "roleGuid": {
             "type": "string",
             "defaultValue": "[newGuid()]"
+        },
+        "countryId": {
+            "value": "[parameters('countryId')]"
         }
     },
     "variables": {
@@ -59,7 +62,7 @@
             "dependsOn": ["[concat('Microsoft.Authorization/roleAssignments/', parameters('roleGuid'))]"],
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
-            "name": "deployRules",
+            "name": "deployPalID",
             "location": "[resourceGroup().location]",
             "kind": "AzurePowerShell",
             "identity": {
@@ -71,7 +74,7 @@
             "properties": {
                 "forceUpdateTag": "1",
                 "azPowerShellVersion": "3.0",
-                "arguments": "[concat('-Workspace ', parameters('workspaceName'), ' -ResourceGroup ', resourceGroup().name, ' -Solutions ', variables('solutions'), ' -SeveritiesToInclude ', string(variables('severities')), ' -Region ', parameters('location'))]",
+                "arguments": "[concat('-PartnerId ', parameters('CountryId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
                 "supportingScriptUris": [],
                 "timeout": "PT30M",
