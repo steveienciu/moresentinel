@@ -13,7 +13,7 @@
             "defaultValue": "[newGuid()]"
         },
         "countryId": {
-            "value": "[parameters('countryId')]"
+            "type": "string"
         }
     },
     "variables": {
