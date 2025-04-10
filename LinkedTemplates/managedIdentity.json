@@ -4,84 +4,73 @@
     "parameters": {
         "location": {
             "type": "string",
-            "metadata": {
-                "description": "Location for the managed identity."
-            }
+            "metadata": { "description": "Location for the managed identity." }
         },
         "roleGuid": {
             "type": "string",
-            "defaultValue": "[newGuid()]"
+            "defaultValue": "[guid(resourceGroup().id)]"
         },
-        "countryId": {
-            "type": "string"
-        }
+        "countryId": { "type": "string" }
     },
     "variables": {
-        "identityName": "bv-mi-playbook"
+        "identityName": "bv-mi-playbook",
+        "logicAppOperatorRole": "73c42c96-874c-492b-b04d-ab87d138a893"
     },
     "resources": [
         {
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "apiVersion": "2018-11-30",
             "name": "[variables('identityName')]",
-            "location": "[resourceGroup().location]"
+            "location": "[parameters('location')]"
         },
         {
-            "dependsOn": ["[concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('identityName'))]"],
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
             "name": "sleep",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "kind": "AzurePowerShell",
+            "dependsOn": [ "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]" ],
             "properties": {
-                "forceUpdateTag": "2",
+                "forceUpdateTag": "[utcNow()]",
                 "azPowerShellVersion": "3.0",
-                "arguments": "",
                 "scriptContent": "Start-Sleep -Seconds 80",
-                "supportingScriptUris": [],
                 "timeout": "PT30M",
-                "cleanupPreference": "Always",
-                "retentionInterval": "P1D"
+                "cleanupPreference": "Always"
             }
         },
         {
-            "apiVersion": "2017-09-01",
             "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2020-10-01-preview",
             "name": "[parameters('roleGuid')]",
+            "dependsOn": [ "[resourceId('Microsoft.Resources/deploymentScripts', 'sleep')]" ],
             "properties": {
-                "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '73c42c96-874c-492b-b04d-ab87d138a893')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30', 'Full').properties.principalId]",
-                "scope": "[resourceGroup().id]",
-                "principalType": "ServicePrincipal" 
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Resources/deploymentScripts/', 'sleep')]"
-            ]
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('logicAppOperatorRole'))]",
+                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30').principalId]",
+                "principalType": "ServicePrincipal",
+                "scope": "[resourceGroup().id]"
+            }
         },
         {
-            "dependsOn": ["[concat('Microsoft.Authorization/roleAssignments/', parameters('roleGuid'))]"],
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
             "name": "deployPalID",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "kind": "AzurePowerShell",
+            "dependsOn": [ "[resourceId('Microsoft.Authorization/roleAssignments', parameters('roleGuid'))]" ],
             "identity": {
-                "type": "userAssigned",
-                "userAssignedIdentities": {
-                    "[resourceID('Microsoft.ManagedIdentity/userAssignedIdentities/',variables('identityName'))]": {}
+                "type": "UserAssigned",
+                "userAssignedIdentities": { 
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]": {} 
                 }
             },
             "properties": {
-                "forceUpdateTag": "1",
+                "forceUpdateTag": "[utcNow()]",
                 "azPowerShellVersion": "3.0",
                 "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
-                "supportingScriptUris": [],
                 "timeout": "PT30M",
-                "cleanupPreference": "Always",
-                "retentionInterval": "P1D"
+                "cleanupPreference": "Always"
             }
         }
-    ],
-    "outputs": {}
+    ]
 }
