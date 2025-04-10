@@ -4,7 +4,7 @@
     "parameters": {
         "rgName": { "type": "string" },
         "location": { "type": "string" },
-        "countryId": { "value": "[parameters('countryId')]" }
+        "countryId": { "value": "[parameters('countryId')]" },
         "_artifactsLocation": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/"
