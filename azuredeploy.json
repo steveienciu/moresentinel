@@ -2,21 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rgName": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
+        "rgName": { "type": "string" },
+        "location": { "type": "string" },
+        "partnerMpnId": { "type": "string" },
         "_artifactsLocation": {
             "type": "string",
-            "metadata": {
-                "description": "The location of resources"
-            },
             "defaultValue": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/"
         }
     },
     "variables": {
+        "palTagKey": "[concat('pid-', parameters('partnerMpnId'))]"
     },
     "resources": [
         {
@@ -31,9 +26,7 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    }
+                    "location": { "value": "[parameters('location')]" }
                 }
             }
         },
@@ -48,18 +41,10 @@
                     "uri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/lighthouse/bv_sentinel_lighthouse_template_rg.json"
                 },
                 "parameters": {
-                    "rgName": {
-                        "value": "[parameters('rgName')]"
-                    },
-                    "mspOfferName": {
-                        "value": "BlueVoyant Azure Sentinel MSSP"
-                    },
-                    "mspOfferDescription": {
-                        "value": "BlueVoyant Managed Security Services"
-                    },
-                    "managedByTenantId": {
-                        "value": "172f0077-e962-407c-86e2-20b3cd881b2c"
-                    },
+                    "rgName": { "value": "[parameters('rgName')]" },
+                    "mspOfferName": { "value": "BlueVoyant Azure Sentinel MSSP" },
+                    "mspOfferDescription": { "value": "BlueVoyant Managed Security Services" },
+                    "managedByTenantId": { "value": "172f0077-e962-407c-86e2-20b3cd881b2c" },
                     "authorizations": {
                         "value": [
                             {
@@ -92,6 +77,5 @@
                 }
             }
         }
-    ],
-    "outputs": {}
+    ]
 }
