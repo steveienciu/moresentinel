@@ -18,7 +18,8 @@
         }
     },
     "variables": {
-        "palTagKey": "[concat('pid-', parameters('countryId'))]"
+        "palTagKey": "[concat('pid-', parameters('countryId'))]",
+        "shouldDeployLighthouse": "[bool(parameters('deployLighthouse'))]"
     },
     "resources": [
         {
@@ -39,7 +40,7 @@
             }
         },
         {
-            "condition": "[parameters('deployLighthouse')]",
+            "condition": "[variables('shouldDeployLighthouse')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "lighthouseDeployment",
