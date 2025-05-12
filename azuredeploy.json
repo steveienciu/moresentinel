@@ -5,6 +5,13 @@
         "rgName": { "type": "string" },
         "location": { "type": "string" },
         "countryId": { "type": "string" },
+        "deployLighthouse": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Whether to deploy Azure Lighthouse"
+            }
+        },
         "_artifactsLocation": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/"
@@ -32,6 +39,7 @@
             }
         },
         {
+            "condition": "[parameters('deployLighthouse')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "lighthouseDeployment",
