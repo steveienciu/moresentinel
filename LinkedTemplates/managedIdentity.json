@@ -18,7 +18,8 @@
     "variables": {
         "identityName": "bv-mi-playbook",
         "logicAppOperatorRole": "73c42c96-874c-492b-b04d-ab87d138a893",
-        "palTagKey": "[concat('pid-', parameters('palId'))]"
+        "palTagKey": "[concat('pid-', parameters('palId'))]",
+        "forceUpdateTag": "1.0.0"
     },
     "resources": [
         {
@@ -38,7 +39,7 @@
             "kind": "AzurePowerShell",
             "dependsOn": [ "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]" ],
             "properties": {
-                "forceUpdateTag": "[utcNow()]",
+                "forceUpdateTag": "[variables('forceUpdateTag')]",
                 "azPowerShellVersion": "3.0",
                 "scriptContent": "Start-Sleep -Seconds 80",
                 "timeout": "PT30M",
@@ -71,7 +72,7 @@
                 }
             },
             "properties": {
-                "forceUpdateTag": "[utcNow()]",
+                "forceUpdateTag": "[variables('forceUpdateTag')]",
                 "azPowerShellVersion": "3.0",
                 "arguments": "[concat('-PartnerId ', parameters('palId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
