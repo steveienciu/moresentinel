@@ -46,7 +46,6 @@
                     "mspOfferName": { "value": "BlueVoyant Azure Sentinel MSSP" },
                     "mspOfferDescription": { "value": "BlueVoyant Managed Security Services" },
                     "managedByTenantId": { "value": "172f0077-e962-407c-86e2-20b3cd881b2c" },
-                    "palId": { "value": "[parameters('countryId')]" },
                     "authorizations": {
                         "value": [
                             {
