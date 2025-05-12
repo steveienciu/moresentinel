@@ -6,10 +6,10 @@
         "config": {
             "isWizard": false,
             "basics": {
-                "description": "",
+                "description": "Select your deployment options",
                 "location": {
                     "label": "Location",
-                    "toolTip": "Location for all resources"
+                    "toolTip": "Select the location for your resources"
                 }
             }
         },
@@ -18,45 +18,88 @@
                 "name": "rgName",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Resource Group name",
-                "placeholder": "",
                 "defaultValue": "",
-                "toolTip": "Enter a resource group name",
+                "toolTip": "Enter a name for the resource group",
                 "constraints": {
                     "required": true,
                     "regex": "^[A-Za-z0-9][A-Za-z0-9-]{1,28}[A-Za-z0-9]$",
                     "validationMessage": "Resource group name must be 1-30 alphanumeric characters with no trailing hyphen."
-                },
-                "visible": true
+                }
             },
             {
                 "name": "country",
                 "type": "Microsoft.Common.DropDown",
                 "label": "Country",
-                "defaultValue": "USA",
-                "toolTip": "Select the country your team is based out of",
+                "defaultValue": "6125666",
+                "toolTip": "Select your country",
                 "constraints": {
                     "allowedValues": [
-                        { "label": "USA", "value": "6125666" },
-                        { "label": "Canada", "value": "5448477" },
-                        { "label": "Spain", "value": "6248729" },
-                        { "label": "Philippines", "value": "6296039" },
-                        { "label": "United Kingdom", "value": "6462628" },
-                        { "label": "Hungary", "value": "6462631" },
-                        { "label": "Belgium", "value": "6492623" },
-                        { "label": "Netherlands", "value": "6496378" },
-                        { "label": "Germany", "value": "6519439" },
-                        { "label": "Switzerland", "value": "6823721" },
-                        { "label": "France", "value": "6578585" },
-                        { "label": "Singapore", "value": "6591555" },
-                        { "label": "Denmark", "value": "6636462" },
-                        { "label": "Australia", "value": "6772171" },
-                        { "label": "LATAM", "value": "6125666" }
+                        {
+                            "label": "USA",
+                            "value": "6125666"
+                        },
+                        {
+                            "label": "Canada",
+                            "value": "5448477"
+                        },
+                        {
+                            "label": "Spain",
+                            "value": "6248729"
+                        },
+                        {
+                            "label": "Philippines",
+                            "value": "6296039"
+                        },
+                        {
+                            "label": "United Kingdom",
+                            "value": "6462628"
+                        },
+                        {
+                            "label": "Hungary",
+                            "value": "6462631"
+                        },
+                        {
+                            "label": "Belgium",
+                            "value": "6492623"
+                        },
+                        {
+                            "label": "Netherlands",
+                            "value": "6496378"
+                        },
+                        {
+                            "label": "Germany",
+                            "value": "6519439"
+                        },
+                        {
+                            "label": "Switzerland",
+                            "value": "6823721"
+                        },
+                        {
+                            "label": "France",
+                            "value": "6578585"
+                        },
+                        {
+                            "label": "Singapore",
+                            "value": "6591555"
+                        },
+                        {
+                            "label": "Denmark",
+                            "value": "6636462"
+                        },
+                        {
+                            "label": "Australia",
+                            "value": "6772171"
+                        },
+                        {
+                            "label": "LATAM",
+                            "value": "6125666"
+                        }
                     ],
                     "required": true
-                },
-                "visible": true
+                }
             }
         ],
+        "steps": [],
         "outputs": {
             "location": "[location()]",
             "rgName": "[basics('rgName')]",
