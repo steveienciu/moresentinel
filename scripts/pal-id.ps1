@@ -4,6 +4,9 @@ param (
 )
 
 try {
+    Write-Output "Registering PowerShell Gallery repository..."
+    Register-PSRepository -Default -ErrorAction Stop
+    
     Write-Output "Installing Az.AzManagementPartner module..."
     Install-Module -Name Az.AzManagementPartner -Force -ErrorAction Stop
     
