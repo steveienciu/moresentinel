@@ -13,6 +13,10 @@ try {
         Write-Output "PSGallery is already registered."
     }
     
+    Write-Output "Removing existing Az modules..."
+    Remove-Module -Name Az.ManagementPartner -Force -ErrorAction SilentlyContinue
+    Remove-Module -Name Az.Accounts -Force -ErrorAction SilentlyContinue
+    
     Write-Output "Installing required Az.Accounts module..."
     Install-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
     Import-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
