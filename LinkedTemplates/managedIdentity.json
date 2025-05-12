@@ -43,6 +43,7 @@
                 "azPowerShellVersion": "3.0",
                 "scriptContent": "Start-Sleep -Seconds 80",
                 "timeout": "PT30M",
+                "retentionInterval": "PT1H",
                 "cleanupPreference": "Always"
             }
         },
@@ -77,6 +78,7 @@
                 "arguments": "[concat('-PartnerId ', parameters('palId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
                 "timeout": "PT30M",
+                "retentionInterval": "PT1H",
                 "cleanupPreference": "Always"
             }
         }
