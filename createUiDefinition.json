@@ -3,23 +3,12 @@
     "handler": "Microsoft.Azure.CreateUIDef",
     "version": "0.1.2-preview",
     "parameters": {
-        "config": {
-            "isWizard": false,
-            "basics": {
-                "description": "Select your deployment options",
-                "location": {
-                    "label": "Location",
-                    "toolTip": "Select the location for your resources"
-                }
-            }
-        },
         "basics": [
             {
                 "name": "rgName",
                 "type": "Microsoft.Common.TextBox",
                 "label": "Resource Group name",
                 "defaultValue": "",
-                "toolTip": "Enter a name for the resource group",
                 "constraints": {
                     "required": true,
                     "regex": "^[A-Za-z0-9][A-Za-z0-9-]{1,28}[A-Za-z0-9]$",
@@ -31,69 +20,23 @@
                 "type": "Microsoft.Common.DropDown",
                 "label": "Country",
                 "defaultValue": "6125666",
-                "toolTip": "Select your country",
                 "constraints": {
                     "allowedValues": [
-                        {
-                            "label": "USA",
-                            "value": "6125666"
-                        },
-                        {
-                            "label": "Canada",
-                            "value": "5448477"
-                        },
-                        {
-                            "label": "Spain",
-                            "value": "6248729"
-                        },
-                        {
-                            "label": "Philippines",
-                            "value": "6296039"
-                        },
-                        {
-                            "label": "United Kingdom",
-                            "value": "6462628"
-                        },
-                        {
-                            "label": "Hungary",
-                            "value": "6462631"
-                        },
-                        {
-                            "label": "Belgium",
-                            "value": "6492623"
-                        },
-                        {
-                            "label": "Netherlands",
-                            "value": "6496378"
-                        },
-                        {
-                            "label": "Germany",
-                            "value": "6519439"
-                        },
-                        {
-                            "label": "Switzerland",
-                            "value": "6823721"
-                        },
-                        {
-                            "label": "France",
-                            "value": "6578585"
-                        },
-                        {
-                            "label": "Singapore",
-                            "value": "6591555"
-                        },
-                        {
-                            "label": "Denmark",
-                            "value": "6636462"
-                        },
-                        {
-                            "label": "Australia",
-                            "value": "6772171"
-                        },
-                        {
-                            "label": "LATAM",
-                            "value": "6125666"
-                        }
+                        {"label": "USA", "value": "6125666"},
+                        {"label": "Canada", "value": "5448477"},
+                        {"label": "Spain", "value": "6248729"},
+                        {"label": "Philippines", "value": "6296039"},
+                        {"label": "United Kingdom", "value": "6462628"},
+                        {"label": "Hungary", "value": "6462631"},
+                        {"label": "Belgium", "value": "6492623"},
+                        {"label": "Netherlands", "value": "6496378"},
+                        {"label": "Germany", "value": "6519439"},
+                        {"label": "Switzerland", "value": "6823721"},
+                        {"label": "France", "value": "6578585"},
+                        {"label": "Singapore", "value": "6591555"},
+                        {"label": "Denmark", "value": "6636462"},
+                        {"label": "Australia", "value": "6772171"},
+                        {"label": "LATAM", "value": "6125666"}
                     ],
                     "required": true
                 }
