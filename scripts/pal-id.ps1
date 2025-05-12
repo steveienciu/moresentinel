@@ -13,8 +13,13 @@ try {
         Write-Output "PSGallery is already registered."
     }
     
+    Write-Output "Installing required Az.Accounts module..."
+    Install-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
+    Import-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
+    
     Write-Output "Installing Az.ManagementPartner module..."
     Install-Module -Name Az.ManagementPartner -Force -ErrorAction Stop
+    Import-Module -Name Az.ManagementPartner -Force -ErrorAction Stop
     
     Write-Output "Creating management partner with ID: $PartnerId"
     $result = New-AzManagementPartner -PartnerId $PartnerId -ErrorAction Stop
