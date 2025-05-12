@@ -11,25 +11,7 @@
         }
     },
     "variables": {
-        "palIdMap": {
-            "USA": "6125666",
-            "Canada": "5448477",
-            "Spain": "6248729",
-            "Philippines": "6296039",
-            "United Kingdom": "6462628",
-            "Hungary": "6462631",
-            "Belgium": "6492623",
-            "Netherlands": "6496378",
-            "Germany": "6519439",
-            "Switzerland": "6823721",
-            "France": "6578585",
-            "Singapore": "6591555",
-            "Denmark": "6636462",
-            "Australia": "6772171",
-            "LATAM": "6125666"
-        },
-        "palId": "[variables('palIdMap')[parameters('countryId')]]",
-        "palTagKey": "[concat('pid-', variables('palId'))]"
+        "palTagKey": "[concat('pid-', parameters('countryId'))]"
     },
     "resources": [
         {
@@ -45,7 +27,7 @@
                 },
                 "parameters": {
                     "location": { "value": "[parameters('location')]" },
-                    "palId": { "value": "[variables('palId')]" }
+                    "palId": { "value": "[parameters('countryId')]" }
                 }
             }
         },
@@ -64,7 +46,7 @@
                     "mspOfferName": { "value": "BlueVoyant Azure Sentinel MSSP" },
                     "mspOfferDescription": { "value": "BlueVoyant Managed Security Services" },
                     "managedByTenantId": { "value": "172f0077-e962-407c-86e2-20b3cd881b2c" },
-                    "palId": { "value": "[variables('palId')]" },
+                    "palId": { "value": "[parameters('countryId')]" },
                     "authorizations": {
                         "value": [
                             {
