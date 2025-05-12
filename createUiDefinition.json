@@ -40,13 +40,21 @@
                     ],
                     "required": true
                 }
+            },
+            {
+                "name": "deployLighthouse",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy Azure Lighthouse",
+                "defaultValue": true,
+                "toolTip": "Check this box to deploy Azure Lighthouse. Uncheck to skip Lighthouse deployment."
             }
         ],
         "steps": [],
         "outputs": {
             "location": "[location()]",
             "rgName": "[basics('rgName')]",
-            "countryId": "[basics('country')]"
+            "countryId": "[basics('country')]",
+            "deployLighthouse": "[basics('deployLighthouse')]"
         }
     }
 }
