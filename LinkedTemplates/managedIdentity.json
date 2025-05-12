@@ -10,18 +10,25 @@
             "type": "string",
             "defaultValue": "[guid(resourceGroup().id)]"
         },
-        "countryId": { "type": "string" }
+        "palId": {
+            "type": "string",
+            "metadata": { "description": "Partner ID for resource tagging" }
+        }
     },
     "variables": {
         "identityName": "bv-mi-playbook",
-        "logicAppOperatorRole": "73c42c96-874c-492b-b04d-ab87d138a893"
+        "logicAppOperatorRole": "73c42c96-874c-492b-b04d-ab87d138a893",
+        "palTagKey": "[concat('pid-', parameters('palId'))]"
     },
     "resources": [
         {
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "apiVersion": "2018-11-30",
             "name": "[variables('identityName')]",
-            "location": "[parameters('location')]"
+            "location": "[parameters('location')]",
+            "tags": {
+                "[variables('palTagKey')]": "true"
+            }
         },
         {
             "type": "Microsoft.Resources/deploymentScripts",
@@ -66,7 +73,7 @@
             "properties": {
                 "forceUpdateTag": "[utcNow()]",
                 "azPowerShellVersion": "3.0",
-                "arguments": "[concat('-PartnerId ', parameters('countryId'))]",
+                "arguments": "[concat('-PartnerId ', parameters('palId'))]",
                 "primaryScriptUri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/scripts/pal-id.ps1",
                 "timeout": "PT30M",
                 "cleanupPreference": "Always"
