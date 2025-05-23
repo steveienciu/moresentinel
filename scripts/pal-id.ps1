@@ -7,8 +7,14 @@ try {
     Write-Output "Setting up PowerShell environment..."
     $ErrorActionPreference = 'Stop'
     
-    # Ensure PSGallery is trusted
-    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+    # Register PSGallery if not already registered
+    if (-not (Get-PSRepository -Name PSGallery -ErrorAction SilentlyContinue)) {
+        Write-Output "Registering PSGallery..."
+        Register-PSRepository -Default -InstallationPolicy Trusted
+    } else {
+        Write-Output "Setting PSGallery installation policy to Trusted..."
+        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+    }
     
     Write-Output "Installing required Az.Accounts module..."
     Install-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -AllowClobber -Scope CurrentUser -ErrorAction Stop
