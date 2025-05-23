@@ -10,10 +10,6 @@
             "type": "string",
             "defaultValue": "[guid(resourceGroup().id)]"
         },
-        "managementPartnerRoleGuid": {
-            "type": "string",
-            "defaultValue": "[guid(resourceGroup().id, 'ManagementPartner')]"
-        },
         "palId": {
             "type": "string",
             "metadata": { "description": "Partner ID for resource tagging" }
@@ -22,7 +18,6 @@
     "variables": {
         "identityName": "bv-mi-playbook",
         "logicAppOperatorRole": "73c42c96-874c-492b-b04d-ab87d138a893",
-        "managementPartnerRole": "f2bce439-9c4e-4f7e-a0c6-2dc0f50b0e92",
         "palTagKey": "[concat('pid-', parameters('palId'))]",
         "forceUpdateTag": "1.0.0"
     },
@@ -65,26 +60,13 @@
             }
         },
         {
-            "type": "Microsoft.Authorization/roleAssignments",
-            "apiVersion": "2020-10-01-preview",
-            "name": "[parameters('managementPartnerRoleGuid')]",
-            "dependsOn": [ "[resourceId('Microsoft.Resources/deploymentScripts', 'sleep')]" ],
-            "properties": {
-                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('managementPartnerRole'))]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30').principalId]",
-                "principalType": "ServicePrincipal",
-                "scope": "[subscription().id]"
-            }
-        },
-        {
             "type": "Microsoft.Resources/deploymentScripts",
             "apiVersion": "2020-10-01",
             "name": "deployPalID",
             "location": "[parameters('location')]",
             "kind": "AzurePowerShell",
             "dependsOn": [ 
-                "[resourceId('Microsoft.Authorization/roleAssignments', parameters('roleGuid'))]",
-                "[resourceId('Microsoft.Authorization/roleAssignments', parameters('managementPartnerRoleGuid'))]"
+                "[resourceId('Microsoft.Authorization/roleAssignments', parameters('roleGuid'))]"
             ],
             "identity": {
                 "type": "UserAssigned",
