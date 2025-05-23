@@ -21,7 +21,8 @@
         "palTagKey": "[concat('pid-', parameters('countryId'))]",
         "shouldDeployLighthouse": "[bool(parameters('deployLighthouse'))]",
         "identityName": "bv-mi-playbook",
-        "managementPartnerRole": "f2bce439-9c4e-4f7e-a0c6-2dc0f50b0e92"
+        "managementPartnerRole": "f2bce439-9c4e-4f7e-a0c6-2dc0f50b0e92",
+        "roleAssignmentName": "[newGuid()]"
     },
     "resources": [
         {
@@ -44,7 +45,7 @@
         {
             "type": "Microsoft.Authorization/roleAssignments",
             "apiVersion": "2020-10-01-preview",
-            "name": "[guid(parameters('rgName'), 'ManagementPartner')]",
+            "name": "[variables('roleAssignmentName')]",
             "dependsOn": [
                 "[resourceId(parameters('rgName'), 'Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]"
             ],
