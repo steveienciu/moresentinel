@@ -19,7 +19,9 @@
     },
     "variables": {
         "palTagKey": "[concat('pid-', parameters('countryId'))]",
-        "shouldDeployLighthouse": "[bool(parameters('deployLighthouse'))]"
+        "shouldDeployLighthouse": "[bool(parameters('deployLighthouse'))]",
+        "identityName": "bv-mi-playbook",
+        "managementPartnerRole": "f2bce439-9c4e-4f7e-a0c6-2dc0f50b0e92"
     },
     "resources": [
         {
@@ -37,6 +39,19 @@
                     "location": { "value": "[parameters('location')]" },
                     "palId": { "value": "[parameters('countryId')]" }
                 }
+            }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2020-10-01-preview",
+            "name": "[guid(resourceGroup().id, 'ManagementPartner')]",
+            "dependsOn": [
+                "[resourceId(parameters('rgName'), 'Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('managementPartnerRole'))]",
+                "principalId": "[reference(resourceId(parameters('rgName'), 'Microsoft.ManagedIdentity/userAssignedIdentities', variables('identityName')), '2018-11-30').principalId]",
+                "principalType": "ServicePrincipal"
             }
         },
         {
