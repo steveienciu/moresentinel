@@ -13,7 +13,7 @@ try {
         Register-PSRepository -Default -InstallationPolicy Trusted
     } else {
         Write-Output "Setting PSGallery installation policy to Trusted..."
-        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -ErrorAction Stop
     }
     
     Write-Output "Installing required Az.Accounts module..."
@@ -35,6 +35,10 @@ try {
     }
     
     Write-Output "Importing modules..."
+    # Remove any existing modules to prevent conflicts
+    Remove-Module -Name Az.Accounts -ErrorAction SilentlyContinue
+    Remove-Module -Name Az.ManagementPartner -ErrorAction SilentlyContinue
+    
     Import-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
     Import-Module -Name Az.ManagementPartner -Force -ErrorAction Stop
     
