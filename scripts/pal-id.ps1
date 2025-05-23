@@ -27,7 +27,7 @@ try {
     
     # Create the management partner using REST API
     $subscriptionId = $context.Subscription.Id
-    $uri = "https://management.azure.com/providers/Microsoft.ManagementPartner/partners/$PartnerId`?api-version=2018-02-01"
+    $uri = "https://management.azure.com/subscriptions/$subscriptionId/providers/Microsoft.ManagementPartner/partners/$PartnerId`?api-version=2018-02-01"
     
     Write-Output "Creating management partner with ID: $PartnerId"
     $body = @{
@@ -38,11 +38,32 @@ try {
     
     $result = Invoke-RestMethod -Uri $uri -Method Put -Headers $authHeader -Body ($body | ConvertTo-Json)
     
-    Write-Output "Successfully created management partner:"
-    Write-Output "Partner ID: $($result.properties.partnerId)"
-    Write-Output "Partner Name: $($result.properties.partnerName)"
-    Write-Output "Tenant ID: $($result.properties.tenantId)"
-    Write-Output "Object ID: $($result.properties.objectId)"
+    # Verify the association was created
+    $verifyUri = "https://management.azure.com/subscriptions/$subscriptionId/providers/Microsoft.ManagementPartner/partners/$PartnerId`?api-version=2018-02-01"
+    $verification = Invoke-RestMethod -Uri $verifyUri -Method Get -Headers $authHeader
+    
+    if ($verification.properties.partnerId -eq $PartnerId) {
+        Write-Output "Successfully created and verified management partner:"
+        Write-Output "Partner ID: $($verification.properties.partnerId)"
+        Write-Output "Partner Name: $($verification.properties.partnerName)"
+        Write-Output "Tenant ID: $($verification.properties.tenantId)"
+        Write-Output "Object ID: $($verification.properties.objectId)"
+        
+        # Add the PAL ID as a tag to the subscription
+        $tagUri = "https://management.azure.com/subscriptions/$subscriptionId`?api-version=2020-01-01"
+        $currentTags = (Invoke-RestMethod -Uri $tagUri -Method Get -Headers $authHeader).tags
+        $currentTags["pid-$PartnerId"] = "true"
+        
+        $tagBody = @{
+            "tags" = $currentTags
+        }
+        
+        Invoke-RestMethod -Uri $tagUri -Method Patch -Headers $authHeader -Body ($tagBody | ConvertTo-Json)
+        Write-Output "Added PAL ID tag to subscription"
+    }
+    else {
+        throw "Failed to verify management partner association"
+    }
 }
 catch {
     Write-Error "Failed to create management partner: $_"
