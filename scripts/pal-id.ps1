@@ -7,49 +7,31 @@ try {
     Write-Output "Setting up PowerShell environment..."
     $ErrorActionPreference = 'Stop'
     
-    # Register PSGallery if not already registered
-    if (-not (Get-PSRepository -Name PSGallery -ErrorAction SilentlyContinue)) {
-        Write-Output "Registering PSGallery..."
-        Register-PSRepository -Default -InstallationPolicy Trusted
-    } else {
-        Write-Output "Setting PSGallery installation policy to Trusted..."
-        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -ErrorAction Stop
-    }
-    
+    # Install required modules without modifying PSGallery settings
     Write-Output "Installing required Az.Accounts module..."
     Install-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -AllowClobber -Scope CurrentUser -ErrorAction Stop
-    
-    Write-Output "Verifying Az.Accounts installation..."
-    $accountsModule = Get-Module -Name Az.Accounts -ListAvailable | Where-Object { $_.Version -eq '4.0.1' }
-    if (-not $accountsModule) {
-        throw "Failed to install Az.Accounts version 4.0.1"
-    }
     
     Write-Output "Installing Az.ManagementPartner module..."
     Install-Module -Name Az.ManagementPartner -Force -AllowClobber -Scope CurrentUser -ErrorAction Stop
     
-    Write-Output "Verifying Az.ManagementPartner installation..."
-    $managementPartnerModule = Get-Module -Name Az.ManagementPartner -ListAvailable
-    if (-not $managementPartnerModule) {
-        throw "Failed to install Az.ManagementPartner"
+    # Create a new PowerShell session to avoid assembly conflicts
+    $session = New-PSSession
+    try {
+        Write-Output "Importing modules in new session..."
+        Import-PSSession -Session $session -Module Az.Accounts, Az.ManagementPartner -AllowClobber
+        
+        Write-Output "Creating management partner with ID: $PartnerId"
+        $result = New-AzManagementPartner -PartnerId $PartnerId -ErrorAction Stop
+        
+        Write-Output "Successfully created management partner:"
+        Write-Output "Partner ID: $($result.PartnerId)"
+        Write-Output "Partner Name: $($result.PartnerName)"
+        Write-Output "Tenant ID: $($result.TenantId)"
+        Write-Output "Object ID: $($result.ObjectId)"
     }
-    
-    Write-Output "Importing modules..."
-    # Remove any existing modules to prevent conflicts
-    Remove-Module -Name Az.Accounts -ErrorAction SilentlyContinue
-    Remove-Module -Name Az.ManagementPartner -ErrorAction SilentlyContinue
-    
-    Import-Module -Name Az.Accounts -RequiredVersion 4.0.1 -Force -ErrorAction Stop
-    Import-Module -Name Az.ManagementPartner -Force -ErrorAction Stop
-    
-    Write-Output "Creating management partner with ID: $PartnerId"
-    $result = New-AzManagementPartner -PartnerId $PartnerId -ErrorAction Stop
-    
-    Write-Output "Successfully created management partner:"
-    Write-Output "Partner ID: $($result.PartnerId)"
-    Write-Output "Partner Name: $($result.PartnerName)"
-    Write-Output "Tenant ID: $($result.TenantId)"
-    Write-Output "Object ID: $($result.ObjectId)"
+    finally {
+        Remove-PSSession -Session $session
+    }
 }
 catch {
     Write-Error "Failed to create management partner: $_"
