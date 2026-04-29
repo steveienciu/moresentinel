@@ -1,0 +1,101 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "description": "Name: \"BlueVoyant SOC Engineering\",\nRole Id: \"b24988ac-6180-42a0-ab88-20f7382dd24c\"\nRole name: Contributor\nWe require Contributor role on the Resource Group. This is the highest level permission we request for Sentinel deployments. The role is needed to be able to create resources and carry out configurations on the Resource group.\n\nName: \"BlueVoyant Client Success Team\",\nRole Id: \"8d289c81-5878-46d4-8554-54e1e3d8b5cb\"\nRole Name: Microsoft Sentinel Reader\nThe role provides read access to the Log Analytics Workspace, so the Client Success team can have access to the client's environment.\n\nAdditional assignments:\n- Entra group 981e58cf-d175-4884-b45a-a81481926ef4 — Role Id 3e150937-b8fe-4cfb-8069-0eaf05ecd056\n- Entra group 0749cf11-bfcf-4fcc-b667-24dc99515b1b — Role Id 8d289c81-5878-46d4-8554-54e1e3d8b5cb (Microsoft Sentinel Reader)"
+  },
+  "variables": {
+    "groupObjectId": "9088d8a2-760c-484c-8753-8f787c970121",
+    "builtInRoleId": "b24988ac-6180-42a0-ab88-20f7382dd24c",
+    "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('builtInRoleId'))]",
+    "roleAssignmentName": "[guid(resourceGroup().id, variables('groupObjectId'), variables('roleDefinitionId'))]",
+    "groupObjectId2": "8aabcc7b-27bb-49fa-bcf7-e5f2e8a2e444",
+    "builtInRoleId2": "8d289c81-5878-46d4-8554-54e1e3d8b5cb",
+    "roleDefinitionId2": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('builtInRoleId2'))]",
+    "roleAssignmentName2": "[guid(resourceGroup().id, variables('groupObjectId2'), variables('roleDefinitionId2'))]",
+    "groupObjectId3": "981e58cf-d175-4884-b45a-a81481926ef4",
+    "builtInRoleId3": "3e150937-b8fe-4cfb-8069-0eaf05ecd056",
+    "roleDefinitionId3": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('builtInRoleId3'))]",
+    "roleAssignmentName3": "[guid(resourceGroup().id, variables('groupObjectId3'), variables('roleDefinitionId3'))]",
+    "groupObjectId4": "0749cf11-bfcf-4fcc-b667-24dc99515b1b",
+    "builtInRoleId4": "8d289c81-5878-46d4-8554-54e1e3d8b5cb",
+    "roleDefinitionId4": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('builtInRoleId4'))]",
+    "roleAssignmentName4": "[guid(resourceGroup().id, variables('groupObjectId4'), variables('roleDefinitionId4'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('roleAssignmentName')]",
+      "metadata": {
+        "description": "Name: \"BlueVoyant SOC Engineering\",\nRole Id: \"b24988ac-6180-42a0-ab88-20f7382dd24c\"\nRole name: Contributor\nWe require Contributor role on the Resource Group. This is the highest level permission we request for Sentinel deployments. The role is needed to be able to create resources and carry out configurations on the Resource group."
+      },
+      "properties": {
+        "roleDefinitionId": "[variables('roleDefinitionId')]",
+        "principalId": "[variables('groupObjectId')]",
+        "principalType": "ForeignGroup"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('roleAssignmentName2')]",
+      "metadata": {
+        "description": "Name: \"BlueVoyant Client Success Team\",\nRole Id: \"8d289c81-5878-46d4-8554-54e1e3d8b5cb\"\nRole Name: Microsoft Sentinel Reader\nThe role provides read access to the Log Analytics Workspace, so the Client Success team can have access to the client's environment."
+      },
+      "properties": {
+        "roleDefinitionId": "[variables('roleDefinitionId2')]",
+        "principalId": "[variables('groupObjectId2')]",
+        "principalType": "ForeignGroup"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('roleAssignmentName3')]",
+      "metadata": {
+        "description": "Entra group 981e58cf-d175-4884-b45a-a81481926ef4 — Role Id 3e150937-b8fe-4cfb-8069-0eaf05ecd056"
+      },
+      "properties": {
+        "roleDefinitionId": "[variables('roleDefinitionId3')]",
+        "principalId": "[variables('groupObjectId3')]",
+        "principalType": "ForeignGroup"
+      }
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "name": "[variables('roleAssignmentName4')]",
+      "metadata": {
+        "description": "Entra group 0749cf11-bfcf-4fcc-b667-24dc99515b1b — Role Id 8d289c81-5878-46d4-8554-54e1e3d8b5cb (Microsoft Sentinel Reader). Same role as Client Success Team; additional group."
+      },
+      "properties": {
+        "roleDefinitionId": "[variables('roleDefinitionId4')]",
+        "principalId": "[variables('groupObjectId4')]",
+        "principalType": "ForeignGroup"
+      }
+    }
+  ],
+  "outputs": {
+    "roleAssignmentScope": {
+      "type": "string",
+      "value": "[resourceGroup().id]"
+    },
+    "roleAssignmentName": {
+      "type": "string",
+      "value": "[variables('roleAssignmentName')]"
+    },
+    "roleAssignmentName2": {
+      "type": "string",
+      "value": "[variables('roleAssignmentName2')]"
+    },
+    "roleAssignmentName3": {
+      "type": "string",
+      "value": "[variables('roleAssignmentName3')]"
+    },
+    "roleAssignmentName4": {
+      "type": "string",
+      "value": "[variables('roleAssignmentName4')]"
+    }
+  }
+}
