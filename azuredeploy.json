@@ -39,7 +39,7 @@
     },
     "variables": {
         "lighthouseTemplateUri": "[concat(parameters('_artifactsLocation'), 'lighthouse/bv_sentinel_lighthouse_template_rg.json', parameters('_artifactsLocationSasToken'))]",
-        "gdapPermissionsTemplateUri": "[concat(parameters('_artifactsLocation'), 'gdap-permissions.json', parameters('_artifactsLocationSasToken'))]"
+        "gdapPermissionsTemplateUri": "[concat(parameters('_artifactsLocation'), 'bluevoyantRgRoleAssignments.json', parameters('_artifactsLocationSasToken'))]"
     },
     "resources": [
         {
