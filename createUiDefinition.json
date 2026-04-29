@@ -3,58 +3,63 @@
     "handler": "Microsoft.Azure.CreateUIDef",
     "version": "0.1.2-preview",
     "parameters": {
+        "config": {
+            "isWizard": false,
+            "basics": {
+                "location": {
+                    "label": "Location",
+                    "toolTip": "Region for the deployment; use the same region as the existing resource group (typically).",
+                    "resourceTypes": [
+                        "Microsoft.Resources/resourceGroups"
+                    ]
+                }
+            }
+        },
         "basics": [
             {
                 "name": "rgName",
                 "type": "Microsoft.Common.TextBox",
-                "label": "Resource Group name",
+                "label": "Resource group name (must already exist)",
                 "defaultValue": "",
+                "toolTip": "Enter the name of an existing resource group in this subscription. This template does not create a resource group.",
                 "constraints": {
                     "required": true,
-                    "regex": "^[A-Za-z0-9][A-Za-z0-9-]{1,28}[A-Za-z0-9]$",
-                    "validationMessage": "Resource group name must be 1-30 alphanumeric characters with no trailing hyphen."
-                }
-            },
-            {
-                "name": "country",
-                "type": "Microsoft.Common.DropDown",
-                "label": "Country",
-                "defaultValue": "6125666",
-                "constraints": {
-                    "allowedValues": [
-                        {"label": "USA", "value": "6125666"},
-                        {"label": "Canada", "value": "5448477"},
-                        {"label": "Spain", "value": "6248729"},
-                        {"label": "Philippines", "value": "6296039"},
-                        {"label": "United Kingdom", "value": "6462628"},
-                        {"label": "Hungary", "value": "6462631"},
-                        {"label": "Belgium", "value": "6492623"},
-                        {"label": "Netherlands", "value": "6496378"},
-                        {"label": "Germany", "value": "6519439"},
-                        {"label": "Switzerland", "value": "6823721"},
-                        {"label": "France", "value": "6578585"},
-                        {"label": "Singapore", "value": "6591555"},
-                        {"label": "Denmark", "value": "6636462"},
-                        {"label": "Australia", "value": "6772171"},
-                        {"label": "LATAM", "value": "6125666"}
-                    ],
-                    "required": true
-                }
+                    "regex": "^(?=.{1,90}$)(?!.*\\.$)[A-Za-z0-9._()-]+$",
+                    "validationMessage": "Use 1–90 characters. Allowed: letters, digits, period, underscore, hyphen, parentheses. Name cannot end with a period (Azure naming rules)."
+                },
+                "visible": true
             },
             {
                 "name": "deployLighthouse",
                 "type": "Microsoft.Common.CheckBox",
-                "label": "Deploy Azure Lighthouse",
+                "label": "Deploy Azure Lighthouse (BlueVoyant MSSP onboarding)?",
                 "defaultValue": true,
-                "toolTip": "Check this box to deploy Azure Lighthouse. Uncheck to skip Lighthouse deployment."
+                "toolTip": "Onboards this resource group to Azure Lighthouse with BlueVoyant’s standard authorizations. Turn off to skip.",
+                "constraints": {
+                    "required": false,
+                    "validationMessage": "Please choose"
+                },
+                "visible": true
+            },
+            {
+                "name": "deployGdapPermissions",
+                "type": "Microsoft.Common.CheckBox",
+                "label": "Deploy partner resource group RBAC (gdap-permissions template)?",
+                "defaultValue": false,
+                "toolTip": "Applies the linked Azure RBAC role assignments in gdap-permissions.json to this resource group. Granular Delegated Admin Privileges (GDAP) is set up in Partner Center / Microsoft Entra admin relationships—not by this box—but this template is often used together with Lighthouse and GDAP for a full partner setup. Prerequisite: partner Entra group object IDs must exist in your directory or assignments will fail.",
+                "constraints": {
+                    "required": false,
+                    "validationMessage": "Please choose"
+                },
+                "visible": true
             }
         ],
         "steps": [],
         "outputs": {
             "location": "[location()]",
             "rgName": "[basics('rgName')]",
-            "countryId": "[basics('country')]",
-            "deployLighthouse": "[basics('deployLighthouse')]"
+            "deployLighthouse": "[basics('deployLighthouse')]",
+            "deployGdapPermissions": "[basics('deployGdapPermissions')]"
         }
     }
 }
