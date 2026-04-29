@@ -2,14 +2,34 @@
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rgName": { "type": "string" },
-        "location": { "type": "string" },
-        "countryId": { "type": "string" },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "SAS token for private template storage, if used."
+            }
+        },
+        "rgName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of an existing resource group. This template does not create a resource group."
+            }
+        },
+        "location": {
+            "type": "string"
+        },
         "deployLighthouse": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Whether to deploy Azure Lighthouse"
+                "description": "When true, deploys Azure Lighthouse registration for the resource group (BlueVoyant MSSP onboarding)."
+            }
+        },
+        "deployGdapPermissions": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "When true, deploys Azure RBAC role assignments from gdap-permissions.json on the resource group. (GDAP is configured in Partner Center / Entra, not by ARM; this template is IAM on the RG only.)"
             }
         },
         "_artifactsLocation": {
@@ -18,38 +38,21 @@
         }
     },
     "variables": {
-        "palTagKey": "[concat('pid-', parameters('countryId'))]",
-        "shouldDeployLighthouse": "[bool(parameters('deployLighthouse'))]",
-        "identityName": "bv-mi-playbook"
+        "lighthouseTemplateUri": "[concat(parameters('_artifactsLocation'), 'lighthouse/bv_sentinel_lighthouse_template_rg.json', parameters('_artifactsLocationSasToken'))]",
+        "gdapPermissionsTemplateUri": "[concat(parameters('_artifactsLocation'), 'gdap-permissions.json', parameters('_artifactsLocationSasToken'))]"
     },
     "resources": [
         {
-            "name": "managedIdentityCreation",
+            "condition": "[parameters('deployLighthouse')]",
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "resourceGroup": "[parameters('rgName')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[uri(parameters('_artifactsLocation'), 'LinkedTemplates/managedIdentity.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "location": { "value": "[parameters('location')]" },
-                    "palId": { "value": "[parameters('countryId')]" }
-                }
-            }
-        },
-        {
-            "condition": "[variables('shouldDeployLighthouse')]",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
+            "apiVersion": "2022-09-01",
             "name": "lighthouseDeployment",
             "location": "[parameters('location')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/steveienciu/moresentinel/main/lighthouse/bv_sentinel_lighthouse_template_rg.json"
+                    "uri": "[variables('lighthouseTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "rgName": { "value": "[parameters('rgName')]" },
@@ -87,6 +90,25 @@
                     }
                 }
             }
+        },
+        {
+            "condition": "[parameters('deployGdapPermissions')]",
+            "name": "gdapPermissionsDeployment",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2023-07-01",
+            "resourceGroup": "[parameters('rgName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('gdapPermissionsTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
-    ]
+    ],
+    "outputs": {
+        "resourceGroupName": { "type": "string", "value": "[parameters('rgName')]" },
+        "lighthouseDeployed": { "type": "string", "value": "[string(parameters('deployLighthouse'))]" },
+        "gdapPermissionsTemplateDeployed": { "type": "string", "value": "[string(parameters('deployGdapPermissions'))]" }
+    }
 }
